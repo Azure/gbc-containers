@@ -1,59 +1,7 @@
 # Deploy the Superhero Ratings App to AKS
 
-## Review/Edit the YAML Config Files
-
-1. In Azure Cloud Shell edit `heroes-db.yaml` using `vi`
-    ```
-    cd ~/blackbelt-aks-hackfest/labs/helper-files
-
-    vi heroes-db.yaml
-    ```
-    * Review the yaml file and learn about some of the settings
-    * Update the yaml file for the proper container image name
-    * You will need to replace the `<login server>` with the ACR login server created in lab 2
-    * Example: 
-
-        ```
-        spec:
-        containers:
-        - image: mycontainerregistry.azurecr.io/azureworkshop/rating-db:v1
-            name:  heroes-db-cntnr
-        ```
-
-2. In Azure Cloud Shell edit `heroes-web-api.yaml` using `vi`
-    ```
-    cd ~/blackbelt-aks-hackfest/labs/helper-files
-
-    vi heroes-web-api.yaml
-    ```
-    * Review the yaml file and learn about some of the settings. Note the environment variables that allow the services to connect
-    * Update the yaml file for the proper container image names.
-    * You will need to replace the `<login server>` with the ACR login server created in lab 2
-        > Note: You will update the image name TWICE updating the web and api container images.
-
-    * Example: 
-
-        ```
-        spec:
-        containers:
-        - image: mycontainerregistry.azurecr.io/azureworkshop/rating-web:v1
-            name:  heroes-web-cntnr
-        ```
-
-## Setup AKS with access to Azure Container Registry
-
-There are a few ways that AKS clusters can access your private Azure Container Registry. Generally the service account that kubernetes utilizes will have rights based on its Azure credentials. In our lab config, we must create a secret to allow this access. 
-
-```
-# set these values to yours
-ACR_SERVER=
-ACR_USER=
-ACR_PWD=
-
-kubectl create secret docker-registry acr-secret --docker-server=$ACR_SERVER --docker-username=$ACR_USER --docker-password=$ACR_PWD --docker-email=superman@heroes.com
-```
-
-> Note: You can review the `heroes-db.yaml` and `heroes-web-api.yaml` to see where the `imagePullSecrets` are configured.
+1. In Azure Cloud Shell use 'kubectl' to deploy the web,api, and database to AKS
+   
 
 ## Deploy database container to AKS
 
@@ -128,4 +76,4 @@ kubectl create secret docker-registry acr-secret --docker-server=$ACR_SERVER --d
 
 * Browse to the External IP for your web application (on port 8080) and try the app
 
-> The public IP can take a few minutes to create with a new cluster. Sit back and relax. Maybe check Facebook. 
+> The public IP can take a few minutes to create with a new cluster. Sit back and relax. Maybe check Facebook.

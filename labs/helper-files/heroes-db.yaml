@@ -33,7 +33,7 @@ spec:
       imagePullSecrets:
         - name: acr-secret
       containers:
-      - image:  <login server>/azureworkshop/rating-db:v1
+      - image:  dstrebel/rating-db:v1
         name:  heroes-db-cntnr
         resources:
           requests:
